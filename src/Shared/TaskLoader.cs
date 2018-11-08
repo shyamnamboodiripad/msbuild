@@ -102,6 +102,12 @@ namespace Microsoft.Build.Shared
                             appDomainInfo.ApplicationBase = BuildEnvironmentHelper.Instance.CurrentMSBuildToolsDirectory;
                             appDomainInfo.ConfigurationFile = BuildEnvironmentHelper.Instance.CurrentMSBuildConfigurationFile;
                         }
+                        else
+                        {
+                            // Inherit ApplicationBase and ConfigurationFile from parent AppDomain.
+                            appDomainInfo.ApplicationBase = appDomainSetup.ApplicationBase;
+                            appDomainInfo.ConfigurationFile = appDomainSetup.ConfigurationFile;
+                        }
 
                         AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver;
                         s_resolverLoadedType = loadedType;
